@@ -38,7 +38,9 @@ You may want it for a few reasons:
 * To use SQLite on Windows Phone 8 (instead of IndexedDB).
 * To provide more direct control over the SQLite database (e.g. so you can prepopulate the database using native code).
 
-It's recommended to avoid the SQLite Plugin unless you really need it, since it adds extra complexity. But if you do need it, here's what you should do:
+It's recommended to avoid the SQLite Plugin unless you really need it, since it adds extra complexity and may actually be slower (due to context switching between native code and JavaScript).
+
+But if you do need it, here's what you should do:
 
 **First**, be sure to include `pouchdb.js` after `cordova.js` and/or `SQLitePlugin.js`, so that PouchDB will know to wait for the `'ondeviceready'` event and use the SQLite Plugin:
 
