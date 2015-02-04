@@ -15,7 +15,7 @@ Just download [`pouchdb.js`](http://pouchdb.com/guides/setup-pouchdb.html) and i
 <script src="./path/to/pouchdb.js"></script>
 ```
 
-By default, PouchDB will use either WebSQL or IndexedDB &ndash; whatever is available on the device. This means that in terms of support, you have:
+By default, PouchDB will use either WebSQL or IndexedDB &ndash; whatever is available on the device. PouchDB supports:
 
 | Platform | Supported version |
 | ----- | --- |
@@ -36,11 +36,11 @@ You may want it for a few reasons:
 * To avoid [storage limits](http://pouchdb.com/faq.html#data_limits).
 * To run in a background thread instead of the UI thread (e.g. if the UI slows down).
 * To use SQLite on Windows Phone 8 (instead of IndexedDB).
-* To provide more direct control over the SQLite database itself (e.g. so you can prepopulate the database using native code).
+* To provide more direct control over the SQLite database (e.g. so you can prepopulate the database using native code).
 
-It's recommended to avoid the SQLite plugin unless you really need it, since it adds extra complexity. But if you do need it, here's what you should do:
+It's recommended to avoid the SQLite Plugin unless you really need it, since it adds extra complexity. But if you do need it, here's what you should do:
 
-**First**, be sure to include `pouchdb.js` after `cordova.js` and/or `SQLitePlugin.js`, so that PouchDB will know to wait for the `'ondeviceready'` event and check for the SQLite Plugin:
+**First**, be sure to include `pouchdb.js` after `cordova.js` and/or `SQLitePlugin.js`, so that PouchDB will know to wait for the `'ondeviceready'` event and use the SQLite Plugin:
 
 
 ```html
@@ -52,9 +52,9 @@ It's recommended to avoid the SQLite plugin unless you really need it, since it 
 **Second**, create a PouchDB that prefers WebSQL to IndexedDB (rather than the reverse, which is the default). You can use this code:
 
 ```js
-var db = new PouchDB('my_database', {adapter: 'websql'}));
+var db = new PouchDB('my_database', {adapter: 'websql'});
 if (!db.adapter) {
-  // websql/sqlite not supported
+  // websql/sqlite not supported (e.g. FirefoxOS)
   db = new PouchDB('my_database');
 }
 ```
